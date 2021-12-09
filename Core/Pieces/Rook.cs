@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace Core.Pieces
 {
     public class Rook : Piece
     {
