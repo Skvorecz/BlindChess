@@ -9,5 +9,6 @@ namespace Core
     public abstract class Piece
     {
         public Square Position { get; }
+        public Color Color { get; }
     }
 }

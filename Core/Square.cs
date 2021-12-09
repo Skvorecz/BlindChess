@@ -16,5 +16,11 @@ namespace Core
             File = file;
             Rank = rank;
         }
+
+        public bool Equals(Square square)
+        {
+            return this.File == square.File
+                && this.Rank == square.Rank;
+        }
     }
 }
