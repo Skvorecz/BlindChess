@@ -2,13 +2,13 @@
 {
     public enum Rank
     {
-        one,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight
+        One,
+        Two,
+        Tree,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight
     }
 }
