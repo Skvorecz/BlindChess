@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.Players
 {
-    public abstract class PlayerBase : IPlayer
+    public abstract class Player : IPlayer
     {
         protected readonly IBoard board;
         public Color Color { get; }
 
-        protected PlayerBase(Color color)
+        protected Player(Color color)
         {
             Color = color;
         }

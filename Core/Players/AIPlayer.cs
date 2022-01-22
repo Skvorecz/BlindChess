@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Core.Players
 {
-    public class AIPlayer : PlayerBase
+    public class AIPlayer : Player
     {
         public AIPlayer(Color color) : base(color)
         {
