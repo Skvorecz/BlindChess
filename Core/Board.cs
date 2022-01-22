@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Core.Pieces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core
 {
@@ -8,6 +10,12 @@ namespace Core
         private const File RightFile = File.h;
         private const Rank BottomRank = Rank.One;
         private const Rank TopRank = Rank.Eight;
+
+        private List<Piece> pieces;             
+
+        public bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
+        public bool IsSquareFree(Square square) => !IsSquareOccupied(square);
+        private IEnumerable<Square> OccupiedSquares => pieces.Select(p => p.Position);
 
         public bool IsThereSquareOnTheLeft(Square square) => square.File != LeftFile;
         public bool IsThereSquareOnTheRight(Square square) => square.File != RightFile;
