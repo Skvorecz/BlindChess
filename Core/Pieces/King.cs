@@ -5,7 +5,7 @@ namespace Core.Pieces
 {
     public class King : Piece
     {
-        public King(IBoard board) : base(board)
+        public King(IBoard board, Square position, Color color) : base(board, position, color)
         {
         }
 

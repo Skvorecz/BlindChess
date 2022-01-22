@@ -4,7 +4,7 @@ namespace Core.Pieces
 {
     public class Rook : Piece
     {
-        public Rook(IBoard board) : base(board)
+        public Rook(IBoard board, Square position, Color color) : base(board, position, color)
         {
         }
 

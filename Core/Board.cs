@@ -11,16 +11,16 @@ namespace Core
         private const Rank BottomRank = Rank.One;
         private const Rank TopRank = Rank.Eight;
 
-        private List<Piece> pieces;
+        public List<Piece> Pieces { get; set; }
 
         public List<Piece> GetPlayerPieces(Color playerColor)
         {
-            return pieces.Where(p=>p.Color == playerColor).ToList();
+            return Pieces.Where(p=>p.Color == playerColor).ToList();
         }
 
         public bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
         public bool IsSquareFree(Square square) => !IsSquareOccupied(square);
-        private IEnumerable<Square> OccupiedSquares => pieces.Select(p => p.Position);
+        private IEnumerable<Square> OccupiedSquares => Pieces.Select(p => p.Position);
 
         public bool IsThereSquareOnTheLeft(Square square) => square.File != LeftFile;
         public bool IsThereSquareOnTheRight(Square square) => square.File != RightFile;
@@ -144,7 +144,7 @@ namespace Core
 
         public bool IsSquareCheckedByOpponent(Square square, Color yourColor)
         {
-            var opponentPieces = pieces.Where(p => p.Color != yourColor);
+            var opponentPieces = Pieces.Where(p => p.Color != yourColor);
             var checkedSquares = opponentPieces.SelectMany(p => p.GetPossibleMoves());
             return checkedSquares.Contains(square);
         }
@@ -163,13 +163,13 @@ namespace Core
 
         private bool IsKingChecked(Color kingColor)
         {
-            var king = pieces.Single(p => p is King && p.Color == kingColor);
+            var king = Pieces.Single(p => p is King && p.Color == kingColor);
             return IsSquareCheckedByOpponent(king.Position, kingColor);
         }
 
         private bool HasNoMoves(Color playerColor)
         {
-            return pieces.Where(p => p.Color == playerColor).SelectMany(p => p.GetPossibleMoves()).Count() == 0;
+            return Pieces.Where(p => p.Color == playerColor).SelectMany(p => p.GetPossibleMoves()).Count() == 0;
         }
     }
 }
