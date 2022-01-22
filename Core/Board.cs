@@ -11,10 +11,13 @@ namespace Core
         private const Rank BottomRank = Rank.One;
         private const Rank TopRank = Rank.Eight;
 
-        private List<Piece> pieces;             
+        private List<Piece> pieces;
 
-        private bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
-        private bool IsSquareFree(Square square) => !IsSquareOccupied(square);
+        private IEnumerable<Piece> WhitePieces => pieces.Where(p => p.Color == Color.White);
+        private IEnumerable<Piece> BlackPieces => pieces.Where(p => p.Color == Color.Black);
+
+        public bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
+        public bool IsSquareFree(Square square) => !IsSquareOccupied(square);
         private IEnumerable<Square> OccupiedSquares => pieces.Select(p => p.Position);
 
         public bool IsThereSquareOnTheLeft(Square square) => square.File != LeftFile;
@@ -135,6 +138,13 @@ namespace Core
             }
 
             return squares;
+        }
+
+        public bool IsSquareCheckedByOpponent(Square square, Color yourColor)
+        {
+            var opponentPieces = pieces.Where(p => p.Color != yourColor);
+            var checkedSquares = opponentPieces.SelectMany(p => p.GetPossibleMoves());
+            return checkedSquares.Contains(square);
         }
     }
 }

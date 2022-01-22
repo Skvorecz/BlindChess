@@ -19,8 +19,8 @@ namespace Core
 
         public bool Equals(Square square)
         {
-            return this.File == square.File
-                && this.Rank == square.Rank;
+            return File == square.File
+                && Rank == square.Rank;
         }
     }
 }

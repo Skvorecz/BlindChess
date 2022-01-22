@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Pieces
 {
@@ -10,18 +11,24 @@ namespace Core.Pieces
 
         public override List<Square> GetPossibleMoves()
         {
-            var possibleMoves = new List<Square>();
+            var potentialPossibleMoves = new List<Square>();
 
-            possibleMoves.Add(Board.GetSquareOnTheLeft(Position));
-            possibleMoves.Add(Board.GetSquareOnTheLeftAndAbove(Position));
-            possibleMoves.Add(Board.GetSquareAbove(Position));
-            possibleMoves.Add(Board.GetSquareOnTheRightAndAbove(Position));
-            possibleMoves.Add(Board.GetSquareOnTheRight(Position));
-            possibleMoves.Add(Board.GetSquareOnTheRightAndBelow(Position));
-            possibleMoves.Add(Board.GetSquareBelow(Position));
-            possibleMoves.Add(Board.GetSquareOnTheLeftAndBelow(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheLeft(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheLeftAndAbove(Position));
+            potentialPossibleMoves.Add(Board.GetSquareAbove(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheRightAndAbove(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheRight(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheRightAndBelow(Position));
+            potentialPossibleMoves.Add(Board.GetSquareBelow(Position));
+            potentialPossibleMoves.Add(Board.GetSquareOnTheLeftAndBelow(Position));
 
-            return possibleMoves;
+            return potentialPossibleMoves.Where(m => IsMovePossible(m)).ToList();
+        }
+
+        private bool IsMovePossible(Square square)
+        {
+            return Board.IsSquareFree(square)
+                && Board.IsSquareCheckedByOpponent(square, Color);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace Core
         Square GetSquareOnTheRightAndBelow(Square square);
         List<Square> GetUnblockedSquaresOnSameFile(Square square);
         List<Square> GetUnblockedSquaresOnSameRank(Square square);
+        bool IsSquareCheckedByOpponent(Square square, Color yourColor);
+        bool IsSquareFree(Square square);
+        bool IsSquareOccupied(Square square);
         bool IsThereSquareAbove(Square square);
         bool IsThereSquareBelow(Square square);
         bool IsThereSquareOnTheLeft(Square square);
