@@ -13,8 +13,8 @@ namespace Core
 
         private List<Piece> pieces;             
 
-        public bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
-        public bool IsSquareFree(Square square) => !IsSquareOccupied(square);
+        private bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
+        private bool IsSquareFree(Square square) => !IsSquareOccupied(square);
         private IEnumerable<Square> OccupiedSquares => pieces.Select(p => p.Position);
 
         public bool IsThereSquareOnTheLeft(Square square) => square.File != LeftFile;
@@ -71,6 +71,66 @@ namespace Core
             while (IsThereSquareOnTheRight(currentSquare))
             {
                 currentSquare = GetSquareOnTheRight(square);
+                squares.Add(currentSquare);
+            }
+
+            return squares;
+        }
+
+        public List<Square> GetUnblockedSquaresOnSameFile(Square square)
+        {
+            var squares = new List<Square>();
+            var currentSquare = square;
+            while (IsThereSquareBelow(currentSquare))
+            {
+                currentSquare = GetSquareBelow(square);
+                if(IsSquareOccupied(currentSquare))
+                {
+                    break;
+                }
+
+                squares.Add(currentSquare);
+            }
+
+            currentSquare = square;
+            while (IsThereSquareAbove(currentSquare))
+            {
+                currentSquare = GetSquareAbove(square);
+                if (IsSquareOccupied(currentSquare))
+                {
+                    break;
+                }
+
+                squares.Add(currentSquare);
+            }
+
+            return squares;
+        }
+
+        public List<Square> GetUnblockedSquaresOnSameRank(Square square)
+        {
+            var squares = new List<Square>();
+            var currentSquare = square;
+            while (IsThereSquareOnTheLeft(currentSquare))
+            {
+                currentSquare = GetSquareOnTheLeft(square);
+                if (IsSquareOccupied(currentSquare))
+                {
+                    break;
+                }
+
+                squares.Add(currentSquare);
+            }
+
+            currentSquare = square;
+            while (IsThereSquareOnTheRight(currentSquare))
+            {
+                currentSquare = GetSquareOnTheRight(square);
+                if (IsSquareOccupied(currentSquare))
+                {
+                    break;
+                }
+
                 squares.Add(currentSquare);
             }
 

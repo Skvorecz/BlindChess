@@ -12,8 +12,8 @@ namespace Core.Pieces
         {
             var possibleMoves = new List<Square>();
 
-            possibleMoves.AddRange(Board.GetOtherSquaresOnSameFile(Position));
-            possibleMoves.AddRange(Board.GetOtherSquaresOnSameRank(Position));
+            possibleMoves.AddRange(Board.GetUnblockedSquaresOnSameFile(Position));
+            possibleMoves.AddRange(Board.GetUnblockedSquaresOnSameRank(Position));
 
             return possibleMoves;
         }
