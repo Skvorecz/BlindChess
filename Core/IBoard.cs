@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Pieces;
+using System.Collections.Generic;
 
 namespace Core
 {
@@ -6,6 +7,7 @@ namespace Core
     {
         List<Square> GetOtherSquaresOnSameFile(Square square);
         List<Square> GetOtherSquaresOnSameRank(Square square);
+        List<Piece> GetPlayerPieces(Color playerColor);
         Square GetSquareAbove(Square square);
         Square GetSquareBelow(Square square);
         Square GetSquareOnTheLeft(Square square);
@@ -16,6 +18,8 @@ namespace Core
         Square GetSquareOnTheRightAndBelow(Square square);
         List<Square> GetUnblockedSquaresOnSameFile(Square square);
         List<Square> GetUnblockedSquaresOnSameRank(Square square);
+        bool IsItCheckmate(Color nextPlayerColor);
+        bool IsItStatemate(Color nextPlayerColor);
         bool IsSquareCheckedByOpponent(Square square, Color yourColor);
         bool IsSquareFree(Square square);
         bool IsSquareOccupied(Square square);

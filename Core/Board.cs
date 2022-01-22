@@ -13,8 +13,10 @@ namespace Core
 
         private List<Piece> pieces;
 
-        private IEnumerable<Piece> WhitePieces => pieces.Where(p => p.Color == Color.White);
-        private IEnumerable<Piece> BlackPieces => pieces.Where(p => p.Color == Color.Black);
+        public List<Piece> GetPlayerPieces(Color playerColor)
+        {
+            return pieces.Where(p=>p.Color == playerColor).ToList();
+        }
 
         public bool IsSquareOccupied(Square square) => OccupiedSquares.Any(s => s.Equals(square));
         public bool IsSquareFree(Square square) => !IsSquareOccupied(square);
@@ -145,6 +147,29 @@ namespace Core
             var opponentPieces = pieces.Where(p => p.Color != yourColor);
             var checkedSquares = opponentPieces.SelectMany(p => p.GetPossibleMoves());
             return checkedSquares.Contains(square);
+        }
+
+        public bool IsItStatemate(Color nextPlayerColor)
+        {
+            return !IsKingChecked(nextPlayerColor)
+                && HasNoMoves(nextPlayerColor);
+        }
+
+        public bool IsItCheckmate(Color nextPlayerColor)
+        {
+            return IsKingChecked(nextPlayerColor)
+                && HasNoMoves(nextPlayerColor);
+        }
+
+        private bool IsKingChecked(Color kingColor)
+        {
+            var king = pieces.Single(p => p is King && p.Color == kingColor);
+            return IsSquareCheckedByOpponent(king.Position, kingColor);
+        }
+
+        private bool HasNoMoves(Color playerColor)
+        {
+            return pieces.Where(p => p.Color == playerColor).SelectMany(p => p.GetPossibleMoves()).Count() == 0;
         }
     }
 }
